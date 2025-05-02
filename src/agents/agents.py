@@ -12,21 +12,24 @@ from src.tools import (
 from .llm import get_llm_by_type
 from src.config.agents import AGENT_LLM_MAP
 
-# Create agents using configured LLM types
+# 基于配置创建智能代理实例
+# 研究员代理：使用搜索引擎和爬虫工具
 research_agent = create_react_agent(
-    get_llm_by_type(AGENT_LLM_MAP["researcher"]),
-    tools=[tavily_tool, crawl_tool],
-    prompt=lambda state: apply_prompt_template("researcher", state),
+    get_llm_by_type(AGENT_LLM_MAP["researcher"]),  # 获取对应类型的LLM
+    tools=[tavily_tool, crawl_tool],              # 配置可用工具
+    prompt=lambda state: apply_prompt_template("researcher", state),  # 应用提示模板
 )
 
+# 代码工程师代理：使用Python解释器和Bash工具
 coder_agent = create_react_agent(
-    get_llm_by_type(AGENT_LLM_MAP["coder"]),
-    tools=[python_repl_tool, bash_tool],
-    prompt=lambda state: apply_prompt_template("coder", state),
+    get_llm_by_type(AGENT_LLM_MAP["coder"]),      # 获取对应类型的LLM
+    tools=[python_repl_tool, bash_tool],          # 配置可用工具
+    prompt=lambda state: apply_prompt_template("coder", state),       # 应用提示模板
 )
 
+# 浏览器代理：使用浏览器交互工具
 browser_agent = create_react_agent(
-    get_llm_by_type(AGENT_LLM_MAP["browser"]),
-    tools=[browser_tool],
-    prompt=lambda state: apply_prompt_template("browser", state),
+    get_llm_by_type(AGENT_LLM_MAP["browser"]),    # 获取对应类型的LLM
+    tools=[browser_tool],                         # 配置可用工具
+    prompt=lambda state: apply_prompt_template("browser", state),     # 应用提示模板
 )
